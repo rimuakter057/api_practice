@@ -1,62 +1,47 @@
 class MyApiModel {
-  int? id;
-  String? title;
-  double? price;
-  String? description;
-  String? category;
-  String? image;
-  Rating? rating;
+  int? count;
+  String? name;
+  List<Country>? country;
 
-  MyApiModel(
-      {this.id,
-        this.title,
-        this.price,
-        this.description,
-        this.category,
-        this.image,
-        this.rating});
+  MyApiModel({this.count, this.name, this.country});
 
   MyApiModel.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    title = json['title'];
-    price = json['price'];
-    description = json['description'];
-    category = json['category'];
-    image = json['image'];
-    rating =
-    json['rating'] != null ? new Rating.fromJson(json['rating']) : null;
+    count = json['count'];
+    name = json['name'];
+    if (json['country'] != null) {
+      country = <Country>[];
+      json['country'].forEach((v) {
+        country!.add(new Country.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['title'] = this.title;
-    data['price'] = this.price;
-    data['description'] = this.description;
-    data['category'] = this.category;
-    data['image'] = this.image;
-    if (this.rating != null) {
-      data['rating'] = this.rating!.toJson();
+    data['count'] = this.count;
+    data['name'] = this.name;
+    if (this.country != null) {
+      data['country'] = this.country!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
-class Rating {
-  double? rate;
-  int? count;
+class Country {
+  String? countryId;
+  double? probability;
 
-  Rating({this.rate, this.count});
+  Country({this.countryId, this.probability});
 
-  Rating.fromJson(Map<String, dynamic> json) {
-    rate = json['rate'];
-    count = json['count'];
+  Country.fromJson(Map<String, dynamic> json) {
+    countryId = json['country_id'];
+    probability = json['probability'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['rate'] = this.rate;
-    data['count'] = this.count;
+    data['country_id'] = this.countryId;
+    data['probability'] = this.probability;
     return data;
   }
 }

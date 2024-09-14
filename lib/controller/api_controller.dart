@@ -1,26 +1,45 @@
 import 'dart:convert';
-
+import 'dart:developer';
+import 'package:api_practice/model/my_api_model.dart';
 import 'package:http/http.dart' as http;
+class ApiServices{
 
-class ApiCall {
-  void myData() async {
-    var response = await http.get(Uri.parse(
-        "https://fakestoreapi.com/products?fbclid=IwZXh0bgNhZW0CMTEAAR3waNTnk9fL82lSYPRuN-uRcIJ-SLDA0MUGWr-9CuNfxNeyArqzzB_2S2k_aem_9DTjo6P--fnp-I9BhMHNUg"));
-    var decodeData = jsonDecode(response.body);
-    var data = decodeData;
-   // print(data);
-    try {
-      if (response.statusCode == 200) {
-        /*  for( int i =0; i<data.length; i++){
-          print(data[i]['id']);
-        }*/
 
-        for (Map i in data) {
-          print(i['title']);
-        }
-      }
-    } catch (e) {
-      print("error");
-    }
-  }
+
+ static Future<List<Country>?> fetchData()async{
+   var url="https://api.nationalize.io?name=nathaniel";
+    try{
+      var response=await http.get(Uri.parse(url));
+      log("response :${response.statusCode}");
+if(response.statusCode==200){
+  var json=jsonDecode(response.body);
+  var data=MyApiModel.fromJson(json);
+  var list=data.country;
+ return list;
+
 }
+
+    }catch (e){
+      log("Catech $e");
+    }
+    return [];
+  }
+
+
+
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
