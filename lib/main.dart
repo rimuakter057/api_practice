@@ -1,7 +1,8 @@
 
-import 'package:api_practice/view/HomePage/home_page.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:api_practice/view/HomePage/login_api_page.dart';
 import 'package:flutter/material.dart';
+
+
 
 void main() {
 
@@ -15,7 +16,7 @@ class ApiPractice extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomePage(),
+      home: LoginApiPage(),
     );
   }
 }
